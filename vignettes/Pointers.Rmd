@@ -1,0 +1,57 @@
+---
+title: "A Brief Note on Pointers"
+author: "Nicholas Knoblauch"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+#An informal introduction.
+
+As mentioned in the last discussion, computer memory can be thought of as a continuous array of `0`'s and `1`'s.  For example, my laptop has 8 gigabytes of memory.  A gigabyte is $10^9$ bytes, and a byte is 8 bits (a bit is one binary digit, a zero or a one).  This means that I can specify 64 billion binary digits in memory.  In theory, this could be represented as one (very large) integer between 0 and 64 billion.  While this is never done in practice, it is useful to consider the fact that  the "state" of a computer can be represented by the value of the memory at any given time.
+
+## Pointer syntax.
+
+In C++, as in any language, much of meaning is embedded in context.  In the example below, we assign the variable `x` the value of 2.  The assignment operation can be read as "x equals 2", but as we'll see, there's a little bit more going on here than what is implied by the equals sign.
+
+
+```{r engine='Rcpp'}
+#include <Rcpp.h>
+
+//[[Rcpp::export]]
+void pointerDemo(){
+  int x=2;
+  Rcpp::Rcout<<"The value of x is :"<<x<<std::endl;
+  Rcpp::Rcout<<"The address of x is (in hexidecimal)"<<&x<<std::endl;
+  int *xptr = &x;
+  Rcpp::Rcout<<"The value of xptr is "<<xptr<<std::endl;
+  Rcpp::Rcout<<"The address of xptr is "<<&xptr<<std::endl;
+  Rcpp::Rcout<<"'de-referencing' xptr yields "<<*xptr<<std::endl;
+
+  
+  
+  *xptr=3;
+  Rcpp::Rcout<<std::endl<<std::endl;
+  Rcpp::Rcout<<"The value of x is :"<<x<<std::endl;
+  Rcpp::Rcout<<"The address of x is (in hexidecimal)"<<&x<<std::endl;
+  Rcpp::Rcout<<"The value of xptr is "<<xptr<<std::endl;
+  Rcpp::Rcout<<"The address of xptr is "<<&xptr<<std::endl;
+  Rcpp::Rcout<<"'de-referencing' xptr yields "<<*xptr<<std::endl;
+   
+}
+
+```
+
+
+
+```{r}
+pointerDemo()
+```
+
+
+
+
