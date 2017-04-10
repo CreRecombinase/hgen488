@@ -104,7 +104,7 @@ simple_hash(keys)
 ## Problem 10.1-2
 
 
-```{r engine='Rcpp'}
+```{r "two_stacks", engine='Rcpp'}
 #include <Rcpp.h>
 
 
@@ -120,33 +120,33 @@ void two_stacks(const Rcpp::IntegerVector keys, const Rcpp::LogicalVector pushSt
   std::vector<int> stacks(n,0);
   
   int A_front=NA_INTEGER;
-
+  
   int B_front=NA_INTEGER;
-
-
+  
+  
   //First we'll demonstrate pushing on to the stack
   for(int i=0; i<n; i++){
     if(pushStackA[i]==TRUE){
-     if(Rcpp::IntegerVector::is_na(A_front)){
-       A_front=n-1;
-     }else{
-       A_front--;
-     }
-     //If the tops of the stacks meet, we quit in protest
-     if(A_front==B_front){
-       Rcpp::stop("Out of room!");
-     }
+      if(Rcpp::IntegerVector::is_na(A_front)){
+        A_front=n-1;
+      }else{
+        A_front--;
+      }
+      //If the tops of the stacks meet, we quit in protest
+      if(A_front==B_front){
+        Rcpp::stop("Out of room!");
+      }
       Rcpp::Rcout<<"Pushing key["<<i<<"]"<<":("<<keys[i]<<") on stack A"<<std::endl;
       stacks[A_front]=keys[i];
     }else{
-     if(Rcpp::IntegerVector::is_na(A_front)){
-       B_front=0;
-     }else{
-       B_front++;
-     }
-     if(A_front==B_front){
-       Rcpp::stop("Out of room!");
-     }
+      if(Rcpp::IntegerVector::is_na(A_front)){
+        B_front=0;
+      }else{
+        B_front++;
+      }
+      if(A_front==B_front){
+        Rcpp::stop("Out of room!");
+      }
       Rcpp::Rcout<<"Pushing key["<<i<<"]"<<":("<<keys[i]<<") on stack B"<<std::endl;
       stacks[B_front]=keys[i];
     }
@@ -181,7 +181,7 @@ void two_stacks(const Rcpp::IntegerVector keys, const Rcpp::LogicalVector pushSt
 ```
 
 
-```{r}
+```{r demonstrate_stack}
 
 keys <- 1:10
 
@@ -199,7 +199,7 @@ two_stacks(keys,pushA,popA)
 At the start of the loop iteration $i$ we know that there is no element $A[j]=v$ for any $j<i$, (If this were true, we could not still be in the loop).  At the end of the loop iteration we know that $A[i]!=j$ (again, if this were true, we would have exited the loop).  After the loop we know we have either found the index of the element $v$, or we will be returning `NA` as these are the only two lines on which `ret_i` undergoes assignment. 
 
 
-```{r engine='Rcpp'}
+```{r linear_search, engine='Rcpp'}
 
 #include <Rcpp.h>
 

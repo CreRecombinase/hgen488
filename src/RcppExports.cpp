@@ -6,6 +6,29 @@
 
 using namespace Rcpp;
 
+// simple_hash_fn
+void simple_hash_fn(Rcpp::IntegerVector keys, int num_slots);
+RcppExport SEXP hgen488_simple_hash_fn(SEXP keysSEXP, SEXP num_slotsSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Rcpp::IntegerVector >::type keys(keysSEXP);
+    Rcpp::traits::input_parameter< int >::type num_slots(num_slotsSEXP);
+    simple_hash_fn(keys, num_slots);
+    return R_NilValue;
+END_RCPP
+}
+// two_stacks_fn
+void two_stacks_fn(const Rcpp::IntegerVector keys, const Rcpp::LogicalVector pushStackA, const Rcpp::LogicalVector popStackA);
+RcppExport SEXP hgen488_two_stacks_fn(SEXP keysSEXP, SEXP pushStackASEXP, SEXP popStackASEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector >::type keys(keysSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::LogicalVector >::type pushStackA(pushStackASEXP);
+    Rcpp::traits::input_parameter< const Rcpp::LogicalVector >::type popStackA(popStackASEXP);
+    two_stacks_fn(keys, pushStackA, popStackA);
+    return R_NilValue;
+END_RCPP
+}
 // rcppeigen_hello_world
 Eigen::MatrixXd rcppeigen_hello_world();
 RcppExport SEXP hgen488_rcppeigen_hello_world() {
