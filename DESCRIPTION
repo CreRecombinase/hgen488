@@ -1,14 +1,16 @@
 Package: hgen488
 Type: Package
-Title: What the package does (short line)
+Title: Intro to RcppEigen and notes for Uchicago course hgen488
 Version: 1.0
 Date: 2017-04-01
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
+Author: Nicholas Knoblauch
+Maintainer: Nicholas Knoblauch <nwknoblauch@gmail.com>
 Description: More about what it does (maybe more than one line)
-License: What license is it under?
-Imports: Rcpp (>= 0.12.10), RcppEigen (>= 0.3.2.9.1)
+License:  GPL (>= 2) 
+Imports: Rcpp (>= 0.12.10), RcppEigen 
 LinkingTo: Rcpp, RcppEigen
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/CreRecombinase/hgen488
+BugReports: https://github.com/CreRecombinase/hgen488/issues

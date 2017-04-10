@@ -1,0 +1,20 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+#HGEN 488
+
+This package contains a demo for starting a  `Rcpp` package (specifically an `RcppEigen` package).  It also contains some notes on using `Rcpp` and `RcppEigen`.
+
+## Installation
+Installation can be done using the command `devtools::install_github("CreRecombinase/hgen488")`.  Because this package uses 
