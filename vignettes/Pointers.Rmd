@@ -54,4 +54,60 @@ pointerDemo()
 
 
 
+## Pass by reference and pass by value
+
+Working with relatively large vectors and matrices is very common in scientific code, this is especially true in R.
+It's a good practice when writing code to break up code into discrete functions.  A function (usually) accepts some input and (usually) gives some output.  There are two ways to pass parameters to functions, by reference and by value.  R (in general) only allows pass by value.  
+
+```{r engine='Rcpp'}
+
+#include <Rcpp.h>
+
+
+int pass_by_value(int x){
+  x=x+1;
+  return(x);
+}
+
+
+int pass_by_reference(int &x){
+  x=x+1;
+  return(x);
+}
+
+
+
+//[[Rcpp::export]]
+void wrap_pass_by_value(){
+  int x=4;
+  Rcpp::Rcout<<"x is "<<x<<std::endl;
+  int y=pass_by_value(x);
+  Rcpp::Rcout<<"y is "<<y<<std::endl;
+  Rcpp::Rcout<<"x is "<<x<<std::endl;
+  
+}
+
+//[[Rcpp::export]]
+void wrap_pass_by_reference(){
+  int x=4;
+  Rcpp::Rcout<<"x is "<<x<<std::endl;
+  int y=pass_by_reference(x);
+  Rcpp::Rcout<<"y is "<<y<<std::endl;
+  Rcpp::Rcout<<"x is "<<x<<std::endl;
+  
+}
+
+
+```
+
+
+```{r}
+
+wrap_pass_by_reference()
+wrap_pass_by_value()
+
+
+```
+
+
 
