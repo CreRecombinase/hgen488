@@ -53,10 +53,36 @@ Rcpp::List GramSchmidtQR(const Eigen::MatrixXd &X){
 
 
 //[[Rcpp::export]]
-Rcpp::List QR_eigen(const Eigen::MatrixXd &X){
+Rcpp::List GramSchmidtSVD(const Eigen::MatrixXd &X){
+
+  int n=X.rows();
+  int p=X.cols();
+
+  Eigen::ArrayXd d(std::min(n,p));
+  d.setZero();
 
 
+
+  Eigen::MatrixXd U(n,n);
+  Eigen::MatrixXd V(n,n);
+
+
+  //Your code goes here:
+
+  return(Rcpp::List::create(Rcpp::Named("d")=d,
+                            Rcpp::Named("U")=U,
+                            Rcpp::Named("V")=V));
 }
 
+//[[Rcpp::export]]
+Rcpp::List GramSchmidtPCA(const Eigen::MatrixXd &X){
 
+  int n=X.rows();
+  int p=X.cols();
+  Eigen::ArrayXd l(p);
+  Eigen::MatrixXd U(p,p);
+
+  return(Rcpp::List::create(Rcpp::Named("l")=l,
+                            Rcpp::Named("U")=U));
+}
 

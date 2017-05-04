@@ -65,14 +65,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// QR_eigen
-Rcpp::List QR_eigen(const Eigen::MatrixXd& X);
-RcppExport SEXP hgen488_QR_eigen(SEXP XSEXP) {
+// GramSchmidtSVD
+Rcpp::List GramSchmidtSVD(const Eigen::MatrixXd& X);
+RcppExport SEXP hgen488_GramSchmidtSVD(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(QR_eigen(X));
+    rcpp_result_gen = Rcpp::wrap(GramSchmidtSVD(X));
+    return rcpp_result_gen;
+END_RCPP
+}
+// GramSchmidtPCA
+Rcpp::List GramSchmidtPCA(const Eigen::MatrixXd& X);
+RcppExport SEXP hgen488_GramSchmidtPCA(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(GramSchmidtPCA(X));
     return rcpp_result_gen;
 END_RCPP
 }

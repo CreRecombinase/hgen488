@@ -21,8 +21,12 @@ GramSchmidtQR <- function(X) {
     .Call('hgen488_GramSchmidtQR', PACKAGE = 'hgen488', X)
 }
 
-QR_eigen <- function(X) {
-    .Call('hgen488_QR_eigen', PACKAGE = 'hgen488', X)
+GramSchmidtSVD <- function(X) {
+    .Call('hgen488_GramSchmidtSVD', PACKAGE = 'hgen488', X)
+}
+
+GramSchmidtPCA <- function(X) {
+    .Call('hgen488_GramSchmidtPCA', PACKAGE = 'hgen488', X)
 }
 
 sample_hash_func <- function(keys, num_slots = 9L) {
