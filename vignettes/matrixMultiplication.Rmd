@@ -1,0 +1,90 @@
+---
+title: "mat_mult_benchmark"
+author: "Nicholas Knoblauch"
+date: "April 30, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+r_mat_mult <- function(A,B){
+  n<-nrow(A)
+  m<-ncol(A)
+  p<-ncol(B)
+  C <- matrix(0,n,p)
+
+  for (i in 1:n){
+    for( j in 1:p){
+      sum <- 0;
+      for (k in 1:m){
+        sum <- sum+A[i,k]*B[k,j];
+      }
+      C[i,j] <- sum;
+    }
+  }
+  return(C);
+}
+```
+
+
+
+## Matrix multiplication in R vs C++ (naive)
+
+First let's just check that it works
+```{r}
+library(hgen488)
+gen_rmat <- function(p){
+  matrix(runif(p*p),p,p)
+}
+
+
+pvec <- seq(1,2.34,length.out = 20)
+ptl <- numeric(length(pvec))
+rtl <- numeric(length(pvec))
+etl <- numeric(length(pvec))
+ertl <- numeric(length(pvec))
+rrtl <- numeric(length(pvec))
+for(i in 1:length(pvec)){
+  p <- pvec[i]
+    cat(i,":",round(10^p),"\n")
+  A <- gen_rmat(round(10^p))
+  B <- gen_rmat(round(10^p))
+  ptl[i] <- system.time(apply(replicate(n=5,mat_mult(A,B)),c(1,2),sum))[3]
+  rtl[i] <- system.time(apply(replicate(n=5,A%*%B),c(1,2),sum))[3]
+  etl[i] <- system.time(apply(replicate(n=5,mat_mult_eigen(A,B)),c(1,2),sum))[3]
+  ertl[i] <- system.time(rep_mat_mult_eigen(A,B,reps = 5))[3]
+  rrtl[i] <- system.time(apply(replicate(n=5,r_mat_mult(A,B)),c(1,2),sum))[3]
+}
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+library(dplyr)
+library(ggplot2)
+
+R_timing_df <-data_frame(elements=round(10^pvec),time=rtl,method="R_BLAS")
+cpp_timing_df <-data_frame(elements=round(10^pvec),time=ptl,method="cpp")
+e_timing_df <-data_frame(elements=round(10^pvec),time=etl,method="cpp_BLAS")
+er_timing_df <-data_frame(elements=round(10^pvec),time=ertl,method="cpp_BLAS(cpp)")
+RR_timing_df <-data_frame(elements=round(10^pvec),time=rrtl,method="R_Base")
+
+timing_df <- rbind(R_timing_df,cpp_timing_df,e_timing_df,RR_timing_df,er_timing_df)
+
+ggplot(timing_df,aes(x=elements,y=time,col=method))+geom_line()+ggtitle("Matrix Multiplication","5 replicates")+ylab("seconds")+xlab("dimension")
+```
+
+
+
+```{r}
+filter(timing_df,method!="R_Base") %>% ggplot(aes(x=elements,y=time,col=method))+geom_line()+ggtitle("Matrix Multiplication","5 replicates")+ylab("seconds")+xlab("dimension")
+```
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

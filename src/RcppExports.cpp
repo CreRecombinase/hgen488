@@ -6,6 +6,76 @@
 
 using namespace Rcpp;
 
+// mat_mult
+NumericMatrix mat_mult(NumericMatrix A, NumericMatrix B);
+RcppExport SEXP hgen488_mat_mult(SEXP ASEXP, SEXP BSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type A(ASEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type B(BSEXP);
+    rcpp_result_gen = Rcpp::wrap(mat_mult(A, B));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mat_mult_eigen
+Eigen::MatrixXd mat_mult_eigen(const Eigen::MatrixXd& A, const Eigen::MatrixXd& B);
+RcppExport SEXP hgen488_mat_mult_eigen(SEXP ASEXP, SEXP BSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type B(BSEXP);
+    rcpp_result_gen = Rcpp::wrap(mat_mult_eigen(A, B));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rep_mat_mult_eigen
+Eigen::MatrixXd rep_mat_mult_eigen(const Eigen::MatrixXd& A, const Eigen::MatrixXd& B, int reps);
+RcppExport SEXP hgen488_rep_mat_mult_eigen(SEXP ASEXP, SEXP BSEXP, SEXP repsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type B(BSEXP);
+    Rcpp::traits::input_parameter< int >::type reps(repsSEXP);
+    rcpp_result_gen = Rcpp::wrap(rep_mat_mult_eigen(A, B, reps));
+    return rcpp_result_gen;
+END_RCPP
+}
+// GramSchmidt
+Rcpp::List GramSchmidt(const Eigen::MatrixXd& X);
+RcppExport SEXP hgen488_GramSchmidt(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(GramSchmidt(X));
+    return rcpp_result_gen;
+END_RCPP
+}
+// GramSchmidtQR
+Rcpp::List GramSchmidtQR(const Eigen::MatrixXd& X);
+RcppExport SEXP hgen488_GramSchmidtQR(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(GramSchmidtQR(X));
+    return rcpp_result_gen;
+END_RCPP
+}
+// QR_eigen
+Rcpp::List QR_eigen(const Eigen::MatrixXd& X);
+RcppExport SEXP hgen488_QR_eigen(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(QR_eigen(X));
+    return rcpp_result_gen;
+END_RCPP
+}
 // simple_hash_fn
 void simple_hash_fn(Rcpp::IntegerVector keys, int num_slots);
 RcppExport SEXP hgen488_simple_hash_fn(SEXP keysSEXP, SEXP num_slotsSEXP) {

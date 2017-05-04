@@ -18,12 +18,12 @@
 Eigen::MatrixXd rcppeigen_hello_world() {
     Eigen::MatrixXd m1 = Eigen::MatrixXd::Identity(3, 3);
     Eigen::MatrixXd m2 = Eigen::MatrixXd::Random(3, 3);
-	                     
+
     return m1 + 3 * (m1 + m2);
 }
 
 
-// another simple example: outer product of a vector, 
+// another simple example: outer product of a vector,
 // returning a matrix
 //
 // [[Rcpp::export]]
